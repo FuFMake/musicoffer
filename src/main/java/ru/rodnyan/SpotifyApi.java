@@ -59,8 +59,6 @@ public class SpotifyApi {
 			bootstrapServer();
 			code = getCodeHandler.getCode();
 			token = getToken(code);
-			System.out.println("your refresh token is " + token.getRefresh_token());
-			System.out.println("your access token is " + token.getAccess_token());
 		} catch ( IOException | InterruptedException e) {
 			e.printStackTrace();
 			return false;
@@ -119,11 +117,6 @@ public class SpotifyApi {
 		GetCategoriesRequest request = new GetCategoriesRequest();
 		request.setToken(token);
 		return request;
-//		HttpURLConnection urlConnection = (HttpURLConnection) new URL("https://api.spotify.com/v1/browse/categories").openConnection();
-//		urlConnection.setRequestMethod("GET");
-//		urlConnection.setRequestProperty("Authorization", "Bearer " + token.getAccess_token());
-//		System.out.println(IOUtils.toString(urlConnection.getInputStream(), Charsets.UTF_8));
-
 	}
 
 	public static class Builder {

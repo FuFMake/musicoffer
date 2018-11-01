@@ -44,7 +44,7 @@ public abstract class AbstractRequest implements IRequest {
 			}
 		}
 		String json = IOUtils.toString(connection.getInputStream(), Charset.forName("UTF-8"));
-		System.out.println("JSON HAS BEEN ACCEPTED " + json);
+//		System.out.println("JSON HAS BEEN ACCEPTED " + json);
 		connection.disconnect();
 		return (T) json;
 	}
