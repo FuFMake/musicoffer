@@ -2,8 +2,8 @@ package ru.rodnyan;
 
 public class MusicApp {
 
-	private static final String CLIENT_ID = "a19ee7dbfda443b2a8150c9101bfd645";
-	private static final String CLIENT_SECRET = "b31e02adb0ab416eb8e763b9684676c8";
+	private static final String CLIENT_ID = "YOUR CLIENT ID";
+	private static final String CLIENT_SECRET = "YOUR CLIENT SECRET";
 
 	public static void main(String[] args) throws Exception {
 		SpotifyApi spotifyApi = new SpotifyApi.Builder()
