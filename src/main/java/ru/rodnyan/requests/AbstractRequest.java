@@ -19,11 +19,23 @@ public abstract class AbstractRequest implements IRequest {
 	private RequestType type = RequestType.GET;
 
 	private HashMap<String, String> params = new HashMap<>();
+	private HashMap<String, String> queryParams = new HashMap<>();
 
 	protected AccessToken token;
+	protected boolean tokenRequired = true;
 
 	@Override
 	public <T> T execute() throws IOException {
+//		path = URLEncoder.encode(path, "UTF-8");
+		if (!queryParams.isEmpty()) {
+			String query = "?";
+			for (Map.Entry<String, String> entry : queryParams.entrySet()) {
+				query += entry.getKey() + "=" + entry.getValue() + "&";
+			}
+			query = query.substring(0, query.length() - 1);
+			path += query;
+		}
+//		System.out.println(path);
 		connection = (HttpURLConnection) new URL(path).openConnection();
 		connection.setRequestMethod(type.toString());
 		configureConnection();
@@ -54,6 +66,12 @@ public abstract class AbstractRequest implements IRequest {
 		this.params.put(key, value);
 	}
 
+
+	@Override
+	public void addQueryParameter(String key, String value) {
+		this.queryParams.put(key, value);
+	}
+
 	@Override
 	public void setMethod(RequestType type) {
 		this.type = type;
@@ -61,7 +79,13 @@ public abstract class AbstractRequest implements IRequest {
 
 	@Override
 	public void configureConnection() {
+		if (tokenRequired) {
+			connection.setRequestProperty("Authorization", "Bearer " + token.getAccess_token());
+		}
+	}
 
+	public void setPath(String path) {
+		this.path = path;
 	}
 
 	public void setToken(AccessToken token) {

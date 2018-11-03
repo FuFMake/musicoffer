@@ -3,6 +3,7 @@ package ru.rodnyan.input;
 import ru.rodnyan.command.Command;
 import ru.rodnyan.command.CommandFactory;
 import ru.rodnyan.command.CommandManager;
+import ru.rodnyan.exception.NoSuchCommandException;
 
 import java.util.Scanner;
 
@@ -39,7 +40,11 @@ public class InputThread implements Runnable {
 		String args = "";
 		if (splitedCommand.length > 1)
 			args = splitedCommand[1];
-		Command command = CommandFactory.createCommand(splitedCommand[0], args);
-		commandManager.execute(command);
+		try {
+			Command command = CommandFactory.createCommand(splitedCommand[0], args);
+			commandManager.execute(command);
+		} catch (NoSuchCommandException e) {
+			System.out.println("please check if your command is correct (help; to see available commands)");
+		}
 	}
 }

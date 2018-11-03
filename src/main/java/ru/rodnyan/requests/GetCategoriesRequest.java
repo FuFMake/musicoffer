@@ -1,5 +1,9 @@
 package ru.rodnyan.requests;
 
+import ru.rodnyan.model.CategoriesPage;
+import ru.rodnyan.model.CategoriesWrapper;
+import ru.rodnyan.util.JsonUtil;
+
 import java.io.IOException;
 
 public class GetCategoriesRequest extends AbstractRequest {
@@ -10,13 +14,14 @@ public class GetCategoriesRequest extends AbstractRequest {
 	}
 
 	@Override
-	public <T> T execute() throws IOException {
-		return super.execute();
+	public CategoriesPage execute() throws IOException {
+		return JsonUtil.fromJson(super.execute(), CategoriesWrapper.class).getCategories();
+
 	}
 
 	@Override
 	public void configureConnection() {
 		super.configureConnection();
-		connection.setRequestProperty("Authorization", "Bearer " + token.getAccess_token());
+
 	}
 }

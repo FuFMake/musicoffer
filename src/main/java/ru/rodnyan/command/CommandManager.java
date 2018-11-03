@@ -8,6 +8,8 @@ public class CommandManager {
 
 	private SpotifyApi spotifyApi;
 
+	private Command previousCommand;
+
 	public CommandManager(SpotifyApi api) {
 		this.spotifyApi = api;
 	}
@@ -16,8 +18,9 @@ public class CommandManager {
 		command.setApi(spotifyApi);
 		try {
 			command.execute();
-		} catch (IOException e) {
-			e.printStackTrace();
+			previousCommand = command;
+		} catch (IOException | IllegalArgumentException e) {
+			System.out.println(e.getMessage());
 		}
 	}
 }

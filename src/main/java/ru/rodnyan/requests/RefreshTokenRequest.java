@@ -10,13 +10,14 @@ public class RefreshTokenRequest extends AbstractRequest {
 	private final String TOKEN_URL = "https://accounts.spotify.com/api/token";
 
 	public RefreshTokenRequest() {
+		tokenRequired = false;
 		path = TOKEN_URL;
 		setMethod(RequestType.POST);
 	}
 
 	@Override
 	public AccessToken execute() throws IOException {
-		return JsonUtil.fromJson((String) super.execute(), AccessToken.class);
+		return JsonUtil.fromJson(super.execute(), AccessToken.class);
 	}
 
 	@Override

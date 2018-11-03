@@ -1,8 +1,12 @@
 package ru.rodnyan.command;
 
-import java.io.IOException;
+import ru.rodnyan.model.CategoriesPage;
+import ru.rodnyan.requests.GetCategoriesRequest;
 
-public class GetCategoriesCommand  extends AbstractCommand{
+import java.io.IOException;
+import java.util.Arrays;
+
+public class GetCategoriesCommand  extends AbstractCommand {
 
 	public GetCategoriesCommand(String args) {
 		super(args);
@@ -10,6 +14,11 @@ public class GetCategoriesCommand  extends AbstractCommand{
 
 	@Override
 	public void execute() throws IOException {
-		api.getCategories().execute();
+		GetCategoriesRequest request = api.getCategories();
+		if(!args.isEmpty()) {
+			request.addQueryParameter("limit", args);
+		}
+		CategoriesPage json = request.execute();
+		Arrays.stream(json.getItems()).forEach(category -> System.out.println(category.getName()));
 	}
 }

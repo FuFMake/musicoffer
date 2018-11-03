@@ -4,9 +4,7 @@ import com.sun.net.httpserver.HttpContext;
 import com.sun.net.httpserver.HttpServer;
 import ru.rodnyan.exception.SpotifyApiBuildException;
 import ru.rodnyan.model.AccessToken;
-import ru.rodnyan.requests.GetCategoriesRequest;
-import ru.rodnyan.requests.GetTokenRequest;
-import ru.rodnyan.requests.RefreshTokenRequest;
+import ru.rodnyan.requests.*;
 
 import java.io.IOException;
 import java.net.InetSocketAddress;
@@ -115,6 +113,30 @@ public class SpotifyApi {
 	//API METHODS
 	public GetCategoriesRequest getCategories() {
 		GetCategoriesRequest request = new GetCategoriesRequest();
+		request.setToken(token);
+		return request;
+	}
+
+	public GetCategoryPlaylistRequest getCategoryPlaylists() {
+		GetCategoryPlaylistRequest request = new GetCategoryPlaylistRequest();
+		request.setToken(token);
+		return request;
+	}
+
+	public FeaturedPlayilistsRequest getFeatured() {
+		FeaturedPlayilistsRequest request = new FeaturedPlayilistsRequest();
+		request.setToken(token);
+		return request;
+	}
+
+	public NewReleasesRequest getNewReleases() {
+		NewReleasesRequest request = new NewReleasesRequest();
+		request.setToken(token);
+		return request;
+	}
+
+	public RecomendationRequest getRecommmendations() {
+		RecomendationRequest request = new RecomendationRequest();
 		request.setToken(token);
 		return request;
 	}

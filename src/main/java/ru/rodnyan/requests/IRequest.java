@@ -11,4 +11,6 @@ public interface IRequest {
 	void setMethod(RequestType type);
 
 	void configureConnection();
+
+	void addQueryParameter(String key, String value);
 }
